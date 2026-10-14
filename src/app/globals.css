@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ─── Design tokens First Class Group ───────────────────────── */
+@theme {
+  --color-night: #0A0A0A;
+  --color-anthracite: #121212;
+  --color-graphite: #1A1A1A;
+  --color-gold: #D4AF37;
+  --color-gold-light: #E8CD6D;
+  --color-gold-dark: #A8862A;
+  --color-silver: #E5E7EB;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), ui-serif, Georgia, serif;
+
+  --spacing-18: 4.5rem;
+
+  --shadow-glow: 0 0 0 1px rgba(212, 175, 55, 0.25),
+                 0 20px 60px -20px rgba(212, 175, 55, 0.35);
+  --shadow-card: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+
+  --background-image-gold-gradient: linear-gradient(
+    120deg,
+    #E8CD6D 0%,
+    #D4AF37 45%,
+    #A8862A 100%
+  );
+
+  --animate-float: float 6s ease-in-out infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ──────────────────────────────────────────────────── */
+:root { color-scheme: dark; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-night);
+  color: var(--color-silver);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #fff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 9999px;
+  border: 2px solid #0a0a0a;
+}
+::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+
+:focus-visible {
+  outline: 2px solid rgba(212, 175, 55, 0.7);
+  outline-offset: 2px;
+}
+
+/* ─── Utilitaires custom ────────────────────────────────────── */
+@utility text-gradient-gold {
+  background: linear-gradient(120deg, #E8CD6D 0%, #D4AF37 45%, #A8862A 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
