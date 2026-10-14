@@ -67,7 +67,9 @@ function Stars({ rating }: { rating: number }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <Star
           key={i}
-          className={`h-3.5 w-3.5 ${i < rating ? 'fill-gold text-gold' : 'text-white/15'}`}
+          className={`h-3 w-3 sm:h-3.5 sm:w-3.5 ${
+            i < rating ? 'fill-gold text-gold' : 'text-white/15'
+          }`}
         />
       ))}
     </div>
@@ -76,8 +78,8 @@ function Stars({ rating }: { rating: number }) {
 
 export default function Testimonials() {
   return (
-    <section id="avis" className="relative py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <section id="avis" className="relative py-16 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -85,18 +87,18 @@ export default function Testimonials() {
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto max-w-2xl text-center"
         >
-          <span className="text-xs font-medium uppercase tracking-[0.28em] text-gold">
+          <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold sm:text-xs">
             Avis clients
           </span>
-          <h2 className="mt-3 font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-display text-2xl leading-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
             Ils nous font confiance
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-silver/60 sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-silver/60 sm:mt-4 sm:text-base">
             4,9/5 de satisfaction moyenne sur plus de 180 avis vérifiés.
           </p>
         </motion.div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
           {TESTIMONIALS.map((testimonial, index) => (
             <motion.figure
               key={testimonial.id}
@@ -108,21 +110,25 @@ export default function Testimonials() {
                 delay: Math.min(index * 0.07, 0.35),
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-anthracite p-6 transition-colors duration-500 hover:border-gold/30"
+              className="relative flex h-full flex-col rounded-2xl border border-white/10 bg-anthracite p-5 transition-colors duration-500 hover:border-gold/30 sm:p-6"
             >
-              <Quote className="h-6 w-6 text-gold/30" />
+              <Quote className="h-5 w-5 text-gold/30 sm:h-6 sm:w-6" />
 
-              <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-silver/70">
+              <blockquote className="mt-3 flex-1 text-xs leading-relaxed text-silver/70 sm:mt-4 sm:text-sm">
                 « {testimonial.message} »
               </blockquote>
 
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-white/5 pt-5">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold-gradient text-xs font-bold text-night">
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-white/5 pt-4 sm:mt-6 sm:pt-5">
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold-gradient text-[11px] font-bold text-night sm:h-10 sm:w-10 sm:text-xs">
                   {testimonial.initials}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold text-white">{testimonial.name}</p>
-                  <p className="truncate text-[11px] text-silver/45">{testimonial.role}</p>
+                  <p className="truncate text-xs font-semibold text-white sm:text-sm">
+                    {testimonial.name}
+                  </p>
+                  <p className="truncate text-[10px] text-silver/45 sm:text-[11px]">
+                    {testimonial.role}
+                  </p>
                 </div>
                 <Stars rating={testimonial.rating} />
               </figcaption>

@@ -30,34 +30,34 @@ const PILLARS = [
 
 export default function WhyUs() {
   return (
-    <section id="pourquoi-nous" className="relative py-20 lg:py-28">
+    <section id="pourquoi-nous" className="relative py-16 sm:py-20 lg:py-28">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(50%_50%_at_50%_50%,rgba(212,175,55,0.06)_0%,rgba(10,10,10,0)_100%)]" />
 
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <span className="text-xs font-medium uppercase tracking-[0.28em] text-gold">
+          <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold sm:text-xs">
             Pourquoi First Class
           </span>
-          <h2 className="mt-3 font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 font-display text-2xl leading-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
             L’exigence au service de votre confiance
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-silver/60 sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-silver/60 sm:mt-4 sm:text-base">
             Nous ne vendons pas seulement des voitures. Nous garantissons une expérience
             irréprochable, du premier contact jusqu’à la remise des clés.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {PILLARS.map((pillar, index) => (
             <Reveal key={pillar.title} delay={index * 0.08}>
-              <div className="group h-full rounded-2xl border border-white/10 bg-anthracite p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold/35">
-                <span className="grid h-12 w-12 place-items-center rounded-xl border border-gold/25 bg-gold/10 text-gold transition-colors duration-500 group-hover:bg-gold group-hover:text-night">
-                  <pillar.icon className="h-5 w-5" />
+              <div className="group h-full rounded-2xl border border-white/10 bg-anthracite p-5 transition-all duration-500 hover:-translate-y-1 hover:border-gold/35 sm:p-6">
+                <span className="grid h-10 w-10 place-items-center rounded-xl border border-gold/25 bg-gold/10 text-gold transition-colors duration-500 group-hover:bg-gold group-hover:text-night sm:h-12 sm:w-12">
+                  <pillar.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                 </span>
-                <h3 className="mt-5 font-display text-lg font-semibold text-white">
+                <h3 className="mt-4 font-display text-base font-semibold text-white sm:mt-5 sm:text-lg">
                   {pillar.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-silver/55">
+                <p className="mt-2 text-xs leading-relaxed text-silver/55 sm:mt-2.5 sm:text-sm">
                   {pillar.description}
                 </p>
               </div>

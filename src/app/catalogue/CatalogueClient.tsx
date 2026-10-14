@@ -101,152 +101,164 @@ export default function CatalogueClient() {
   };
 
   return (
-    <div className="pt-32 pb-20 lg:pt-40 lg:pb-28">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <div className="pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-40 lg:pb-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+        {/* En-tête */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-2xl"
         >
-          <span className="text-xs font-medium uppercase tracking-[0.28em] text-gold">
+          <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold sm:text-xs">
             Catalogue
           </span>
-          <h1 className="mt-3 font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl">
+          <h1 className="mt-3 font-display text-2xl leading-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
             Tous nos véhicules disponibles
           </h1>
-          <p className="mt-4 text-sm leading-relaxed text-silver/60 sm:text-base">
+          <p className="mt-3 text-sm leading-relaxed text-silver/60 sm:mt-4 sm:text-base">
             {VEHICLES.length} véhicules en stock, inspectés et prêts à partir.
             Filtrez selon votre besoin, puis réservez directement sur WhatsApp.
           </p>
         </motion.div>
 
-        <div className="mt-10 rounded-2xl border border-white/10 bg-anthracite p-5 lg:p-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <VehicleCategories value={offer} onChange={setOffer} counts={counts} />
+        {/* Barre de contrôle */}
+        <div className="mt-8 rounded-2xl border border-white/10 bg-anthracite p-4 sm:mt-10 sm:p-5 lg:p-6">
+          <div className="flex flex-col gap-4">
+            {/* Tabs + recherche */}
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div className="-mx-1 overflow-x-auto px-1">
+                <VehicleCategories value={offer} onChange={setOffer} counts={counts} />
+              </div>
 
-            <div className="flex items-center gap-3">
-              <div className="relative flex-1 lg:w-72">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-silver/35" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="relative flex-1 lg:w-72">
+                  <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-silver/35" />
+                  <input
+                    type="search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Rechercher…"
+                    className="w-full rounded-full border border-white/10 bg-night/60 py-2.5 pl-11 pr-4 text-sm text-white placeholder:text-silver/30 focus:border-gold/50 focus:outline-none"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen((v) => !v)}
+                  className="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-silver/70 transition-colors hover:border-gold/40 hover:text-white sm:px-4 lg:hidden"
+                >
+                  <SlidersHorizontal className="h-4 w-4" />
+                  <span className="hidden sm:inline">Filtres</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Filtres avancés */}
+            <div
+              className={`${
+                filtersOpen ? 'grid' : 'hidden'
+              } gap-5 border-t border-white/5 pt-5 sm:gap-6 sm:pt-6 lg:grid lg:grid-cols-12`}
+            >
+              {/* Catégorie */}
+              <div className="lg:col-span-4">
+                <p className="mb-2.5 text-[10px] font-medium uppercase tracking-[0.16em] text-silver/45 sm:mb-3 sm:text-xs">
+                  Catégorie
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {CATEGORY_OPTIONS.map((option) => {
+                    const active = category === option;
+                    return (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => setCategory(option)}
+                        className={`rounded-full border px-3 py-1.5 text-[11px] font-medium transition-all duration-300 sm:px-4 sm:text-xs ${
+                          active
+                            ? 'border-gold bg-gold/10 text-gold'
+                            : 'border-white/10 text-silver/55 hover:border-white/25 hover:text-white'
+                        }`}
+                      >
+                        {option === 'all' ? 'Toutes' : CATEGORY_LABELS[option]}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Marque + Tri */}
+              <div className="grid gap-4 sm:grid-cols-2 lg:col-span-4">
+                <label className="block">
+                  <span className="mb-2.5 block text-[10px] font-medium uppercase tracking-[0.16em] text-silver/45 sm:mb-3 sm:text-xs">
+                    Marque
+                  </span>
+                  <select
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
+                    className="w-full rounded-xl border border-white/10 bg-night/60 px-3 py-2.5 text-sm text-white focus:border-gold/50 focus:outline-none sm:px-4"
+                  >
+                    <option value="all">Toutes</option>
+                    {brands.map((b) => (
+                      <option key={b} value={b}>
+                        {b}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                <label className="block">
+                  <span className="mb-2.5 block text-[10px] font-medium uppercase tracking-[0.16em] text-silver/45 sm:mb-3 sm:text-xs">
+                    Trier par
+                  </span>
+                  <select
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value as SortKey)}
+                    className="w-full rounded-xl border border-white/10 bg-night/60 px-3 py-2.5 text-sm text-white focus:border-gold/50 focus:outline-none sm:px-4"
+                  >
+                    {SORT_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              {/* Budget */}
+              <div className="lg:col-span-4">
+                <div className="mb-2.5 flex items-center justify-between sm:mb-3">
+                  <span className="text-[10px] font-medium uppercase tracking-[0.16em] text-silver/45 sm:text-xs">
+                    Budget max
+                  </span>
+                  <span className="text-[11px] font-semibold text-gold sm:text-xs">
+                    {formatPrice(maxPrice)}
+                    {offer === 'rent' && <span className="text-silver/40"> / jour</span>}
+                  </span>
+                </div>
                 <input
-                  type="search"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Rechercher une marque, un modèle…"
-                  className="w-full rounded-full border border-white/10 bg-night/60 py-2.5 pl-11 pr-4 text-sm text-white placeholder:text-silver/30 focus:border-gold/50 focus:outline-none"
+                  type="range"
+                  min={0}
+                  max={bounds.max}
+                  step={bounds.step}
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(Number(e.target.value))}
+                  className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-gold"
                 />
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setFiltersOpen((v) => !v)}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-silver/70 transition-colors hover:border-gold/40 hover:text-white lg:hidden"
-              >
-                <SlidersHorizontal className="h-4 w-4" />
-                Filtres
-              </button>
-            </div>
-          </div>
-
-          <div
-            className={`${
-              filtersOpen ? 'grid' : 'hidden'
-            } mt-6 gap-6 border-t border-white/5 pt-6 lg:grid lg:grid-cols-12`}
-          >
-            <div className="lg:col-span-4">
-              <p className="mb-3 text-xs font-medium uppercase tracking-[0.16em] text-silver/45">
-                Catégorie
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {CATEGORY_OPTIONS.map((option) => {
-                  const active = category === option;
-                  return (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setCategory(option)}
-                      className={`rounded-full border px-4 py-1.5 text-xs font-medium transition-all duration-300 ${
-                        active
-                          ? 'border-gold bg-gold/10 text-gold'
-                          : 'border-white/10 text-silver/55 hover:border-white/25 hover:text-white'
-                      }`}
-                    >
-                      {option === 'all' ? 'Toutes' : CATEGORY_LABELS[option]}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="grid gap-4 lg:col-span-4 lg:grid-cols-2">
-              <label className="block">
-                <span className="mb-3 block text-xs font-medium uppercase tracking-[0.16em] text-silver/45">
-                  Marque
-                </span>
-                <select
-                  value={brand}
-                  onChange={(e) => setBrand(e.target.value)}
-                  className="w-full rounded-xl border border-white/10 bg-night/60 px-4 py-2.5 text-sm text-white focus:border-gold/50 focus:outline-none"
+                <button
+                  type="button"
+                  onClick={resetFilters}
+                  className="mt-3 inline-flex items-center gap-2 text-[11px] text-silver/45 transition-colors hover:text-gold sm:mt-4 sm:text-xs"
                 >
-                  <option value="all">Toutes les marques</option>
-                  {brands.map((b) => (
-                    <option key={b} value={b}>
-                      {b}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="block">
-                <span className="mb-3 block text-xs font-medium uppercase tracking-[0.16em] text-silver/45">
-                  Trier par
-                </span>
-                <select
-                  value={sort}
-                  onChange={(e) => setSort(e.target.value as SortKey)}
-                  className="w-full rounded-xl border border-white/10 bg-night/60 px-4 py-2.5 text-sm text-white focus:border-gold/50 focus:outline-none"
-                >
-                  {SORT_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </div>
-
-            <div className="lg:col-span-4">
-              <div className="mb-3 flex items-center justify-between">
-                <span className="text-xs font-medium uppercase tracking-[0.16em] text-silver/45">
-                  Budget max
-                </span>
-                <span className="text-xs font-semibold text-gold">
-                  {formatPrice(maxPrice)}
-                  {offer === 'rent' && <span className="text-silver/40"> / jour</span>}
-                </span>
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  Réinitialiser les filtres
+                </button>
               </div>
-              <input
-                type="range"
-                min={0}
-                max={bounds.max}
-                step={bounds.step}
-                value={maxPrice}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
-                className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-gold"
-              />
-              <button
-                type="button"
-                onClick={resetFilters}
-                className="mt-4 inline-flex items-center gap-2 text-xs text-silver/45 transition-colors hover:text-gold"
-              >
-                <RotateCcw className="h-3.5 w-3.5" />
-                Réinitialiser les filtres
-              </button>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 flex items-center justify-between">
+        {/* Résultats */}
+        <div className="mt-6 flex items-center justify-between sm:mt-8">
           <p className="text-sm text-silver/50">
             <span className="font-semibold text-white">{results.length}</span>{' '}
             {results.length > 1 ? 'véhicules trouvés' : 'véhicule trouvé'}
@@ -254,7 +266,7 @@ export default function CatalogueClient() {
         </div>
 
         {results.length > 0 ? (
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-5 grid gap-4 sm:mt-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {results.map((vehicle, index) => (
                 <motion.div
@@ -274,19 +286,21 @@ export default function CatalogueClient() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-10 rounded-2xl border border-dashed border-white/15 bg-anthracite/50 px-6 py-16 text-center"
+            className="mt-8 rounded-2xl border border-dashed border-white/15 bg-anthracite/50 px-5 py-12 text-center sm:mt-10 sm:px-6 sm:py-16"
           >
-            <p className="font-display text-lg text-white">Aucun véhicule ne correspond</p>
-            <p className="mx-auto mt-2 max-w-sm text-sm text-silver/50">
+            <p className="font-display text-base text-white sm:text-lg">
+              Aucun véhicule ne correspond
+            </p>
+            <p className="mx-auto mt-2 max-w-sm text-xs text-silver/50 sm:text-sm">
               Essayez d’élargir votre budget ou de modifier vos filtres. Notre équipe peut aussi
               rechercher un véhicule sur mesure pour vous.
             </p>
             <button
               type="button"
               onClick={resetFilters}
-              className="mt-6 inline-flex items-center gap-2 rounded-full bg-gold-gradient px-6 py-3 text-sm font-semibold text-night"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-gold-gradient px-5 py-2.5 text-xs font-semibold text-night sm:mt-6 sm:px-6 sm:py-3 sm:text-sm"
             >
-              <RotateCcw className="h-4 w-4" />
+              <RotateCcw className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
               Réinitialiser la recherche
             </button>
           </motion.div>

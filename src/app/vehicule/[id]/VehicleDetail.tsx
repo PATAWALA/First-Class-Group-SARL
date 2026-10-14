@@ -52,20 +52,23 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
   ];
 
   return (
-    <div className="pt-28 pb-20 lg:pt-36 lg:pb-28">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+    <div className="pt-24 pb-16 sm:pt-28 sm:pb-20 lg:pt-36 lg:pb-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+        {/* Fil d'Ariane */}
         <Link
           href="/catalogue"
-          className="inline-flex items-center gap-2 text-sm text-silver/50 transition-colors hover:text-gold"
+          className="inline-flex items-center gap-2 text-xs text-silver/50 transition-colors hover:text-gold sm:text-sm"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
           Retour au catalogue
         </Link>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="mt-6 grid gap-8 sm:mt-8 sm:gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Colonne gauche : galerie + détails */}
           <div className="lg:col-span-7 xl:col-span-8">
+            {/* Galerie */}
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-anthracite">
-              <div className="relative aspect-[16/10] w-full">
+              <div className="relative aspect-[4/3] w-full sm:aspect-[16/10]">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeImage}
@@ -88,25 +91,25 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
 
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-night/40 to-transparent" />
 
-                <div className="absolute left-4 top-4 flex flex-wrap items-center gap-2">
-                  <span className="rounded-full bg-gold-gradient px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-night">
+                <div className="absolute left-3 top-3 flex flex-wrap items-center gap-2 sm:left-4 sm:top-4">
+                  <span className="rounded-full bg-gold-gradient px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-night sm:px-3 sm:text-[10px]">
                     {STATUS_LABELS[vehicle.status]}
                   </span>
-                  <span className="rounded-full border border-white/20 bg-night/60 px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-white backdrop-blur">
+                  <span className="rounded-full border border-white/20 bg-night/60 px-2.5 py-1 text-[9px] uppercase tracking-[0.14em] text-white backdrop-blur sm:px-3 sm:text-[10px]">
                     {CATEGORY_LABELS[vehicle.category]}
                   </span>
                 </div>
               </div>
 
               {vehicle.images.length > 1 && (
-                <div className="no-scrollbar flex gap-3 overflow-x-auto p-4">
+                <div className="no-scrollbar flex gap-2 overflow-x-auto p-3 sm:gap-3 sm:p-4">
                   {vehicle.images.map((image, index) => (
                     <button
                       key={image}
                       type="button"
                       onClick={() => setActiveImage(index)}
                       aria-label={`Voir la photo ${index + 1}`}
-                      className={`relative h-16 w-24 shrink-0 overflow-hidden rounded-xl border transition-all duration-300 ${
+                      className={`relative h-14 w-20 shrink-0 overflow-hidden rounded-xl border transition-all duration-300 sm:h-16 sm:w-24 ${
                         activeImage === index
                           ? 'border-gold opacity-100'
                           : 'border-white/10 opacity-55 hover:opacity-90'
@@ -119,47 +122,54 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
               )}
             </div>
 
-            <div className="mt-10">
-              <h1 className="font-display text-2xl leading-tight text-white sm:text-3xl lg:text-4xl">
+            {/* Description */}
+            <div className="mt-8 sm:mt-10">
+              <h1 className="font-display text-xl leading-tight text-white sm:text-2xl lg:text-3xl xl:text-4xl">
                 {vehicle.brand} {vehicle.model}
               </h1>
-              <p className="mt-2 text-sm uppercase tracking-[0.16em] text-silver/40">
+              <p className="mt-2 text-xs uppercase tracking-[0.16em] text-silver/40 sm:text-sm">
                 {vehicle.title}
               </p>
 
               {vehicle.description && (
-                <p className="mt-6 text-sm leading-relaxed text-silver/65 sm:text-base">
+                <p className="mt-5 text-sm leading-relaxed text-silver/65 sm:mt-6 sm:text-base">
                   {vehicle.description}
                 </p>
               )}
             </div>
 
-            <div className="mt-10">
-              <h2 className="font-display text-xl font-semibold text-white">Fiche technique</h2>
-              <dl className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:grid-cols-4">
+            {/* Fiche technique */}
+            <div className="mt-8 sm:mt-10">
+              <h2 className="font-display text-lg font-semibold text-white sm:text-xl">
+                Fiche technique
+              </h2>
+              <dl className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/5 sm:mt-5 sm:grid-cols-4">
                 {specs.map((spec) => (
-                  <div key={spec.label} className="bg-anthracite px-4 py-5">
-                    <dt className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.12em] text-silver/40">
-                      <spec.icon className="h-3.5 w-3.5 text-gold/70" />
+                  <div key={spec.label} className="bg-anthracite px-3 py-4 sm:px-4 sm:py-5">
+                    <dt className="flex items-center gap-1.5 text-[10px] uppercase tracking-[0.12em] text-silver/40 sm:text-[11px]">
+                      <spec.icon className="h-3 w-3 text-gold/70 sm:h-3.5 sm:w-3.5" />
                       {spec.label}
                     </dt>
-                    <dd className="mt-2 text-sm font-medium text-white">{spec.value}</dd>
+                    <dd className="mt-1.5 text-xs font-medium text-white sm:mt-2 sm:text-sm">
+                      {spec.value}
+                    </dd>
                   </div>
                 ))}
               </dl>
             </div>
 
-            <div className="mt-10">
-              <h2 className="font-display text-xl font-semibold text-white">
+            {/* Équipements */}
+            <div className="mt-8 sm:mt-10">
+              <h2 className="font-display text-lg font-semibold text-white sm:text-xl">
                 Équipements &amp; options
               </h2>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+              <ul className="mt-4 grid gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3">
                 {vehicle.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3 text-sm text-silver/70"
+                    className="flex items-center gap-2.5 rounded-xl border border-white/5 bg-white/[0.03] px-3.5 py-2.5 text-xs text-silver/70 sm:gap-3 sm:px-4 sm:py-3 sm:text-sm"
                   >
-                    <Check className="h-4 w-4 shrink-0 text-gold" />
+                    <Check className="h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
                     {feature}
                   </li>
                 ))}
@@ -167,16 +177,18 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
             </div>
           </div>
 
+          {/* Colonne droite : CTA sticky */}
           <aside className="lg:col-span-5 xl:col-span-4">
             <div className="lg:sticky lg:top-28">
-              <div className="rounded-2xl border border-white/10 bg-anthracite p-6">
+              <div className="rounded-2xl border border-white/10 bg-anthracite p-5 sm:p-6">
+                {/* Prix */}
                 <div className="space-y-3">
                   {vehicle.priceSale && (
                     <div>
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-silver/40">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-silver/40 sm:text-[11px]">
                         Prix de vente
                       </p>
-                      <p className="mt-1 font-display text-3xl font-semibold text-white">
+                      <p className="mt-1 font-display text-2xl font-semibold text-white sm:text-3xl">
                         {formatPrice(vehicle.priceSale)}
                       </p>
                     </div>
@@ -184,22 +196,27 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
 
                   {vehicle.priceRentDay && (
                     <div className={vehicle.priceSale ? 'border-t border-white/5 pt-3' : undefined}>
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-silver/40">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-silver/40 sm:text-[11px]">
                         Location
                       </p>
-                      <p className="mt-1 font-display text-2xl font-semibold text-gold">
+                      <p className="mt-1 font-display text-xl font-semibold text-gold sm:text-2xl">
                         {formatPrice(vehicle.priceRentDay)}
-                        <span className="ml-1 text-sm font-normal text-silver/45">/ jour</span>
+                        <span className="ml-1 text-xs font-normal text-silver/45 sm:text-sm">
+                          / jour
+                        </span>
                       </p>
                     </div>
                   )}
 
                   {!vehicle.priceSale && !vehicle.priceRentDay && (
-                    <p className="font-display text-2xl font-semibold text-white">Sur devis</p>
+                    <p className="font-display text-xl font-semibold text-white sm:text-2xl">
+                      Sur devis
+                    </p>
                   )}
                 </div>
 
-                <div className="mt-5 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.03] px-4 py-3">
+                {/* Disponibilité */}
+                <div className="mt-4 flex items-center gap-2 rounded-xl border border-white/5 bg-white/[0.03] px-3.5 py-2.5 sm:mt-5 sm:px-4 sm:py-3">
                   <span
                     className={`h-2 w-2 rounded-full ${
                       vehicle.isAvailable ? 'bg-emerald-400' : 'bg-rose-400'
@@ -212,14 +229,15 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
                   </span>
                 </div>
 
-                <div className="mt-6 space-y-3">
+                {/* CTAs */}
+                <div className="mt-5 space-y-2.5 sm:mt-6 sm:space-y-3">
                   {canChooseOffer ? (
                     <>
                       <button
                         type="button"
                         onClick={() => open(vehicle, 'sale')}
                         disabled={!vehicle.isAvailable}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-gradient px-6 py-4 text-sm font-semibold text-night transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-gradient px-5 py-3.5 text-sm font-semibold text-night transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40 sm:px-6 sm:py-4"
                       >
                         <MessageCircle className="h-4 w-4" />
                         Acheter ce véhicule
@@ -228,7 +246,7 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
                         type="button"
                         onClick={() => open(vehicle, 'rent')}
                         disabled={!vehicle.isAvailable}
-                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-gold/10 px-6 py-4 text-sm font-semibold text-gold transition-colors duration-300 hover:bg-gold/20 disabled:cursor-not-allowed disabled:opacity-40"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-gold/10 px-5 py-3.5 text-sm font-semibold text-gold transition-colors duration-300 hover:bg-gold/20 disabled:cursor-not-allowed disabled:opacity-40 sm:px-6 sm:py-4"
                       >
                         <MessageCircle className="h-4 w-4" />
                         Réserver en location
@@ -239,7 +257,7 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
                       type="button"
                       onClick={() => open(vehicle, defaultOffer)}
                       disabled={!vehicle.isAvailable}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-gradient px-6 py-4 text-sm font-semibold text-night transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gold-gradient px-5 py-3.5 text-sm font-semibold text-night transition-transform duration-300 hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40 sm:px-6 sm:py-4"
                     >
                       <MessageCircle className="h-4 w-4" />
                       {defaultOffer === 'rent' ? 'Réserver sur WhatsApp' : 'Acheter sur WhatsApp'}
@@ -250,24 +268,25 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
                     href={buildContactUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-medium text-silver/70 transition-colors duration-300 hover:border-white/25 hover:text-white"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-medium text-silver/70 transition-colors duration-300 hover:border-white/25 hover:text-white sm:px-6 sm:py-3.5"
                   >
                     <Phone className="h-4 w-4" />
                     Poser une question
                   </a>
                 </div>
 
-                <ul className="mt-6 space-y-3 border-t border-white/5 pt-5 text-xs text-silver/50">
+                {/* Réassurance */}
+                <ul className="mt-5 space-y-2.5 border-t border-white/5 pt-4 text-[11px] text-silver/50 sm:mt-6 sm:space-y-3 sm:pt-5 sm:text-xs">
                   <li className="flex items-start gap-2.5">
-                    <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                    <ShieldCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
                     Garantie mécanique 6 mois incluse (achat)
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                    <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
                     Démarches administratives prises en charge
                   </li>
                   <li className="flex items-start gap-2.5">
-                    <Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
+                    <Phone className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold sm:h-4 sm:w-4" />
                     Conseiller joignable 7j/7 — {SITE.phoneDisplay}
                   </li>
                 </ul>
@@ -276,12 +295,13 @@ export default function VehicleDetail({ vehicle }: VehicleDetailProps) {
           </aside>
         </div>
 
+        {/* Véhicules similaires */}
         {related.length > 0 && (
-          <section className="mt-20 lg:mt-28">
-            <h2 className="font-display text-2xl font-semibold text-white sm:text-3xl">
+          <section className="mt-14 sm:mt-20 lg:mt-28">
+            <h2 className="font-display text-xl font-semibold text-white sm:text-2xl lg:text-3xl">
               Véhicules similaires
             </h2>
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-6 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {related.map((item, index) => (
                 <VehicleCard key={item.id} vehicle={item} index={index} />
               ))}

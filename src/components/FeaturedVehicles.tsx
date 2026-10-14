@@ -32,26 +32,28 @@ export default function FeaturedVehicles() {
   }, [offer]);
 
   return (
-    <section id="catalogue" className="relative py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <Reveal className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+    <section id="catalogue" className="relative py-16 sm:py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-5 lg:px-8">
+        <Reveal className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-xl">
-            <span className="text-xs font-medium uppercase tracking-[0.28em] text-gold">
+            <span className="text-[10px] font-medium uppercase tracking-[0.28em] text-gold sm:text-xs">
               Notre sélection
             </span>
-            <h2 className="mt-3 font-display text-3xl leading-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-3 font-display text-2xl leading-tight text-white sm:text-3xl lg:text-4xl xl:text-5xl">
               Véhicules vedettes
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-silver/60 sm:text-base">
+            <p className="mt-3 text-sm leading-relaxed text-silver/60 sm:mt-4 sm:text-base">
               Chaque véhicule est inspecté sur 120 points de contrôle avant sa mise en ligne.
               Prix affichés, historique transparent, disponibilité en temps réel.
             </p>
           </div>
 
-          <VehicleCategories value={offer} onChange={setOffer} counts={counts} />
+          <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:overflow-visible sm:px-0">
+            <VehicleCategories value={offer} onChange={setOffer} counts={counts} />
+          </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {vehicles.map((vehicle, index) => (
               <motion.div
@@ -74,10 +76,10 @@ export default function FeaturedVehicles() {
           </p>
         )}
 
-        <Reveal className="mt-14 flex justify-center">
+        <Reveal className="mt-12 flex justify-center sm:mt-14">
           <Link
             href="/catalogue"
-            className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white transition-colors duration-300 hover:border-gold/40 hover:bg-white/10"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:border-gold/40 hover:bg-white/10 sm:px-7 sm:py-3.5"
           >
             Voir tout le catalogue
             <ArrowRight className="h-4 w-4 text-gold transition-transform duration-300 group-hover:translate-x-1" />
