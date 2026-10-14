@@ -1,7 +1,3 @@
-// ============================================================
-// src/components/Navbar.tsx
-// ============================================================
-
 'use client';
 
 import Link from 'next/link';
@@ -46,29 +42,33 @@ export default function Navbar() {
           : 'border-b border-transparent bg-transparent'
       }`}
     >
-      <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-5 lg:h-20 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="group flex items-center gap-3" onClick={() => setMobileOpen(false)}>
-          <span className="relative grid h-10 w-10 place-items-center rounded-xl bg-gold-gradient shadow-glow">
-            <span className="font-display text-lg font-bold text-night">FC</span>
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2 sm:gap-3"
+          onClick={() => setMobileOpen(false)}
+        >
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gold-gradient shadow-glow sm:h-10 sm:w-10">
+            <span className="font-display text-base font-bold text-night sm:text-lg">FC</span>
           </span>
           <span className="leading-tight">
-            <span className="block font-display text-base font-semibold tracking-wide text-white">
+            <span className="block font-display text-sm font-semibold tracking-wide text-white sm:text-base">
               First Class
             </span>
-            <span className="block text-[10px] uppercase tracking-[0.28em] text-gold/80">
+            <span className="block text-[9px] uppercase tracking-[0.28em] text-gold/80 sm:text-[10px]">
               Group Sarl
             </span>
           </span>
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="relative rounded-full px-4 py-2 text-sm text-silver/70 transition-colors hover:text-white"
+                className="rounded-full px-3 py-2 text-sm text-silver/70 transition-colors hover:bg-white/5 hover:text-white xl:px-4"
               >
                 {link.label}
               </Link>
@@ -77,15 +77,16 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden lg:block">
           <a
             href={buildContactUrl()}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 rounded-full bg-gold-gradient px-5 py-2.5 text-sm font-semibold text-night transition-transform duration-300 hover:scale-[1.03]"
+            className="inline-flex items-center gap-2 rounded-full bg-gold-gradient px-4 py-2.5 text-xs font-semibold text-night transition-transform duration-300 hover:scale-[1.03] xl:px-5 xl:text-sm"
           >
             <MessageCircle className="h-4 w-4" />
-            Contact rapide WhatsApp
+            <span className="hidden xl:inline">Contact rapide WhatsApp</span>
+            <span className="xl:hidden">WhatsApp</span>
           </a>
         </div>
 
@@ -93,8 +94,9 @@ export default function Navbar() {
         <button
           type="button"
           aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((v) => !v)}
-          className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white lg:hidden"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition-colors hover:bg-white/10 lg:hidden"
         >
           {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
@@ -110,7 +112,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden border-t border-white/10 bg-night/95 backdrop-blur-xl lg:hidden"
           >
-            <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-6">
+            <ul className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-5 sm:px-5">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <Link
