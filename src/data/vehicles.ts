@@ -1,5 +1,6 @@
 import type { Vehicle } from '@/types';
 
+// ✅ Helper Unsplash : URL formatée et fiable
 const U = (id: string, w = 1600) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
@@ -195,7 +196,7 @@ export const VEHICLES: Vehicle[] = [
     transmission: 'Automatique',
     fuel: 'Essence',
     images: [
-      U('photo-1568605117036-5fe5e7bab0b7'),
+      U('photo-1621007947382-bb3c3994e3fb'),
       U('photo-1549317661-bd32c8ce0db2'),
       U('photo-1571607388263-1044f9ea01dd'),
       U('photo-1502877338535-766e1452684a'),
