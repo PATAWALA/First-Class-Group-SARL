@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import { SITE } from '@/lib/site';
 import { buildContactUrl } from '@/lib/whatsapp';
@@ -20,12 +23,17 @@ const NAV = [
 ];
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer id="contact" className="relative border-t border-white/10 bg-anthracite">
       <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-12">
+          {/* ─── Marque ─────────────────────────────────────── */}
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3">
               <span className="grid h-11 w-11 place-items-center rounded-xl bg-gold-gradient">
@@ -77,6 +85,7 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* ─── Navigation ─────────────────────────────────── */}
           <div className="lg:col-span-2">
             <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white">
               Navigation
@@ -95,6 +104,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* ─── Horaires ───────────────────────────────────── */}
           <div className="lg:col-span-3">
             <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-white">
               <Clock className="h-3.5 w-3.5 text-gold" />
@@ -110,6 +120,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* ─── Contact ────────────────────────────────────── */}
           <div className="lg:col-span-3">
             <h3 className="text-xs font-semibold uppercase tracking-[0.22em] text-white">
               Contact
@@ -158,9 +169,10 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* ─── Bottom bar ─────────────────────────────────────── */}
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-silver/40 sm:flex-row">
           <p>
-            © {year} {SITE.legalName}. Tous droits réservés.
+            © {year ?? 2026} {SITE.legalName}. Tous droits réservés.
           </p>
           <p>Conçu avec exigence pour une clientèle exigeante.</p>
         </div>
